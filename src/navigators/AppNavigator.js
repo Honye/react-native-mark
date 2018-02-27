@@ -1,3 +1,11 @@
+/*
+ * @Author: Honye 
+ * @Date: 2018-02-27 09:55:46 
+ * @Last Modified by: Honye
+ * @Last Modified time: 2018-02-27 11:23:56
+ */
+'use strict';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,6 +18,7 @@ import DetailPage from './../pages/discovery/details';
 import LoginScreen from '../components/LoginScreen';
 import MainScreen from '../components/MainScreen';
 import ProfileScreen from '../components/ProfileScreen';
+import { addListener } from '../utils/redux';
 
 export const AppNavigator = StackNavigator(
   {
@@ -43,11 +52,13 @@ class AppWithNavigationState extends Component {
   }
 
   render() {
+    const { dispatch, nav } = this.props;
     return (
       <AppNavigator 
         navigation={addNavigationHelpers({ 
-          dispatch: this.props.dispatch,
-          state: this.props.nav
+          dispatch: dispatch,
+          state: nav,
+          addListener,
         })} 
       />
     )

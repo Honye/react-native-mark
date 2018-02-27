@@ -2,7 +2,7 @@
  * @Author: Honye 
  * @Date: 2017-12-05 14:43:38 
  * @Last Modified by: Honye
- * @Last Modified time: 2017-12-07 14:21:43
+ * @Last Modified time: 2018-02-27 12:52:37
  */
 'use strict';
 
@@ -13,7 +13,11 @@ import { NavigationActions } from 'react-navigation';
 // Start with two routes: The Main screen, with the Login screen on top.
 const firstAction = AppNavigator.router.getActionForPathAndParams('Guide');
 const tempNavState = AppNavigator.router.getStateForAction(firstAction);
-const secondAction = AppNavigator.router.getActionForPathAndParams('Home');
+// Tab in Stack, this is null
+const secondAction = AppNavigator.router.getActionForPathAndParams('Home') || {
+  type: 'Navigation/NAVIGATE',
+  routeName: 'Home'
+};
 const initialNavState = AppNavigator.router.getStateForAction(
   secondAction,
   tempNavState
