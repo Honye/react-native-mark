@@ -2,7 +2,7 @@
  * @Author: Honye 
  * @Date: 2018-02-27 09:55:46 
  * @Last Modified by: Honye
- * @Last Modified time: 2018-02-27 11:23:56
+ * @Last Modified time: 2018-03-04 17:00:25
  */
 'use strict';
 
@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BackHandler } from 'react-native';
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation';
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import SplashScreen from 'react-native-splash-screen';
 
 import Guide from '../pages/guide';
 import HomeTab from './AppTabNavigator';
@@ -29,15 +31,21 @@ export const AppNavigator = StackNavigator(
     Profile: { screen: ProfileScreen },
     Details: { screen: DetailPage },
   },{
+    headerMode: 'screen',
     navigationOptions: {
-      title: 'HONYE'
-    }
+      title: 'HONYE',
+      gesturesEnabled: true
+    },
+    transitionConfig: () => ({
+      screenInterpolator: CardStackStyleInterpolator.forHorizontal
+    })
   }
 );
 
 class AppWithNavigationState extends Component {
 
   componentDidMount() {
+	SplashScreen.hide();
     BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
   }
 
