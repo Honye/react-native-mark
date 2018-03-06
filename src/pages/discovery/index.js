@@ -2,17 +2,19 @@
  * @Author: Honye 
  * @Date: 2017-11-18 15:49:02 
  * @Last Modified by: Honye
- * @Last Modified time: 2017-12-07 17:07:52
+ * @Last Modified time: 2018-03-06 23:07:16
  */
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, ViewPagerAndroid, Image
+  View, Text, StyleSheet, TouchableOpacity, ViewPagerAndroid, Image, Dimensions, ScrollView
 } from 'react-native';
 import { request } from './../../utils/request';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import * as DiscoveryActions from './../../actions/reqDiscovery';
 import { bindActionCreators } from 'redux';
+import CircleView from './components/CircleView';
+import ArticleBigItem from '../articles/components/ItemArticleBig';
 
 class DiscoveryPage extends Component {
 
@@ -25,7 +27,8 @@ class DiscoveryPage extends Component {
   }
 
   componentDidMount() {
-    this.onPress = this.onPress.bind(this)
+    const { getArticles } = this.props;
+    getArticles()
   }
 
   onPress = () => {
@@ -42,11 +45,54 @@ class DiscoveryPage extends Component {
     })
   }
 
+  /**
+   * 圆形按钮点击事件
+   * @param {String} routeName 路由页
+   */
+  _onCirclePress = (routeName) => () => {
+    const { navigation } = this.props;
+    navigation.navigate(routeName)
+  }
+
+  /**
+   * 文章列表点击事件
+   */
+  _onArticlePress = () => {
+    const { navigation } = this.props;
+    navigation.navigate('ArticleDetails')
+  }
+
   render() {
-    const { banners } = this.props;
+    const { banners, articles } = this.props;
     const { currentPosition } = this.state;
+    const centerView = <View style={styles.centerWrapper}>
+      <CircleView 
+        image={require('../../assets/images/discover_classify_group_icon.png')}
+        title='分类查找'
+        onPress={this._onCirclePress('Classification')}
+      />
+      <CircleView 
+        image={require('../../assets/images/discover_classify_group_icon.png')}
+        title='每日电影卡片'
+        innerText={new Date().getDate()}
+        onPress={this._onCirclePress('DailyCards')}
+      />
+      <CircleView 
+        image={require('../../assets/images/discover_classify_cinema_icon.png')}
+        title='影院热映'
+        onPress={this._onCirclePress('InTheaters')}
+      />
+    </View>;
+
+    const articlesView = articles.map((item, index) => (
+      <ArticleBigItem key={item.id} 
+        image={item.image} 
+        title={item.title} 
+        onPress={this._onArticlePress}
+      />
+    ))
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.viewPager}>
           {
             banners.length > 0 ?
@@ -79,7 +125,9 @@ class DiscoveryPage extends Component {
             }
           </View>
         </View>
-      </View>
+        { centerView }
+        { articlesView }
+      </ScrollView>
     )
   }
 }
@@ -117,7 +165,11 @@ const styles = StyleSheet.create({
   },
   indicatorIconSelected: {
     backgroundColor: '#ffffff',
-  }
+  },
+  centerWrapper: {
+    flexDirection: 'row',
+    backgroundColor: '#fff'
+  },
 })
 
 const mapStateToProps = state => ({
@@ -127,7 +179,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   dispatch,
-  getBanners: bindActionCreators(DiscoveryActions.getBanners, dispatch)
+  getBanners: bindActionCreators(DiscoveryActions.getBanners, dispatch),
+  getArticles: bindActionCreators(DiscoveryActions.getArticles, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiscoveryPage);

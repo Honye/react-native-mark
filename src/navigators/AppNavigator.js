@@ -2,7 +2,7 @@
  * @Author: Honye 
  * @Date: 2018-02-27 09:55:46 
  * @Last Modified by: Honye
- * @Last Modified time: 2018-03-04 17:00:25
+ * @Last Modified time: 2018-03-06 23:06:47
  */
 'use strict';
 
@@ -20,6 +20,10 @@ import DetailPage from './../pages/discovery/details';
 import LoginScreen from '../components/LoginScreen';
 import MainScreen from '../components/MainScreen';
 import ProfileScreen from '../components/ProfileScreen';
+import ClassificationPage from '../pages/articles/ClassificationPage';
+import ArticleDetailsPage from '../pages/articles/ArticleDetailsPage';
+import DailyCardsPage from '../pages/cards/DailyCardsPage';
+import InTheatersPage from '../pages/movies/InTheatersPage';
 import { addListener } from '../utils/redux';
 
 export const AppNavigator = StackNavigator(
@@ -30,6 +34,10 @@ export const AppNavigator = StackNavigator(
     Main: { screen: MainScreen },
     Profile: { screen: ProfileScreen },
     Details: { screen: DetailPage },
+    Classification: { screen: ClassificationPage },
+    ArticleDetails: { screen: ArticleDetailsPage },
+    DailyCards: { screen: DailyCardsPage },
+    InTheaters: {screen: InTheatersPage },
   },{
     headerMode: 'screen',
     navigationOptions: {
