@@ -32,6 +32,10 @@ const LoginScreen = ({ navigation }) => (
       onPress={() => navigation.dispatch({ type: 'User' })}
       title="User center"
     />
+    <Button
+      onPress={() => navigation.navigate('SectionList')}
+      title="SectionList Demo"
+    />
   </View>
 );
 

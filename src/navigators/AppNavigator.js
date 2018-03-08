@@ -2,7 +2,7 @@
  * @Author: Honye 
  * @Date: 2018-02-27 09:55:46 
  * @Last Modified by: Honye
- * @Last Modified time: 2018-03-06 23:06:47
+ * @Last Modified time: 2018-03-08 20:52:22
  */
 'use strict';
 
@@ -24,6 +24,7 @@ import ClassificationPage from '../pages/articles/ClassificationPage';
 import ArticleDetailsPage from '../pages/articles/ArticleDetailsPage';
 import DailyCardsPage from '../pages/cards/DailyCardsPage';
 import InTheatersPage from '../pages/movies/InTheatersPage';
+import SectionListDemo from '../pages/test/SectionListExample';
 import { addListener } from '../utils/redux';
 
 export const AppNavigator = StackNavigator(
@@ -38,6 +39,7 @@ export const AppNavigator = StackNavigator(
     ArticleDetails: { screen: ArticleDetailsPage },
     DailyCards: { screen: DailyCardsPage },
     InTheaters: {screen: InTheatersPage },
+    SectionList: {screen: SectionListDemo },
   },{
     headerMode: 'screen',
     navigationOptions: {
