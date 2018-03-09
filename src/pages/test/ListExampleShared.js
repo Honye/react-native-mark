@@ -114,22 +114,6 @@ class ItemSeparatorComponent extends React.PureComponent {
   }
 }
 
-class Spindicator extends React.PureComponent {
-  render() {
-    return (
-      <Animated.View style={[styles.spindicator, {
-        transform: [
-          {rotate: this.props.value.interpolate({
-            inputRange: [0, 5000],
-            outputRange: ['0deg', '360deg'],
-            extrapolate: 'extend',
-          })}
-        ]
-      }]} />
-    );
-  }
-}
-
 const THUMB_URLS = [
   require('./Thumbnails/like.png'),
   require('./Thumbnails/like.png'),
@@ -181,22 +165,6 @@ function pressItem(context, key) {
     };
     return {data: newData};
   });
-}
-
-function renderSmallSwitchOption(context, key) {
-  if (Platform.isTVOS) {
-    return null;
-  }
-  return (
-    <View style={styles.option}>
-      <Text>{key}:</Text>
-      <Switch
-        style={styles.smallSwitch}
-        value={context.state[key]}
-        onValueChange={(value) => context.setState({[key]: value})}
-      />
-    </View>
-  );
 }
 
 function PlainInput(props) {
@@ -280,13 +248,6 @@ const styles = StyleSheet.create({
     height: 50,
     left: -5,
   },
-  spindicator: {
-    marginLeft: 'auto',
-    marginTop: 8,
-    width: 2,
-    height: 16,
-    backgroundColor: 'darkgray',
-  },
   stackedText: {
     padding: 4,
     fontSize: 18,
@@ -303,10 +264,8 @@ module.exports = {
   ItemSeparatorComponent,
   PlainInput,
   SeparatorComponent,
-  Spindicator,
   genItemData,
   getItemLayout,
   pressItem,
-  renderSmallSwitchOption,
   renderStackedItem,
 };
