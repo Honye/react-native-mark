@@ -201,11 +201,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(200, 199, 204)',
     marginLeft: 60,
   },
-  option: {
-    flexDirection: 'row',
-    padding: 8,
-    paddingRight: 0,
-  },
   row: {
     flexDirection: 'row',
     padding: 10,
